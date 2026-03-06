@@ -6,9 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Ksiazki.class}, version = 1)
+@Database(entities = {Ksiazki.class}, version = 2)
 public abstract class KsiazkiDatabase extends RoomDatabase{
-    public abstract Ksiazki zwrocKsiazkiDao();
+    public abstract KsiazkiDao zwrocKsiazkiDao();
 
     private static KsiazkiDatabase instancja;
 

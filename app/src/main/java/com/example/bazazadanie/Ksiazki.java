@@ -16,7 +16,7 @@ public class Ksiazki {
     @ColumnInfo(name = "rok_wydania")
     private int rokWydania;
 
-    public Ksiazki(int id, String autor, String tytul, double cena, int iloscStron, int rokWydania) {
+    public Ksiazki(String autor, String tytul, double cena, int iloscStron, int rokWydania) {
         this.id = 0;
         this.autor = autor;
         this.tytul = tytul;
