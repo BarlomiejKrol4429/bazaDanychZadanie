@@ -12,12 +12,10 @@ import java.util.List;
 public interface KsiazkiDao {
     @Insert
     public void wstawKsiazkeDoBazy(Ksiazki ksiazka);
-    @Insert
-    public void wstawKilkaKsiazek(Ksiazki ...ksiazka);
     @Delete
     public void usunZBazy(Ksiazki ksiazka);
     @Update
     public void zaktualizuj(Ksiazki ksiazka);
     @Query("SELECT * FROM ksiazki_tabela")
-    List<Ksiazki> zwrocWszytkieWypiekiZBazy();
+    List<Ksiazki> zwrocWszytkieKsiazkiZBazy();
 }

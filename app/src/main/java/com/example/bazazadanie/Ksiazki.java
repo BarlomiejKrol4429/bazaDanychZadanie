@@ -75,14 +75,11 @@ public class Ksiazki {
 
     @Override
     public String toString() {
-        return "Ksiazki{" +
-                "id=" + id +
-                ", autor='" + autor + '\'' +
-                ", tytul='" + tytul + '\'' +
-                ", cena=" + cena +
-                ", iloscStron=" + iloscStron +
-                ", rokWydania=" + rokWydania +
-                '}';
+        return  "Autor: " + autor + ",\n" +
+                "Tytul: " + tytul + ",\n" +
+                "Cena: " + cena + ",\n" +
+                "Ilość Stron: " + iloscStron + ",\n" +
+                "Rok Wydania: " + rokWydania;
     }
 }
 

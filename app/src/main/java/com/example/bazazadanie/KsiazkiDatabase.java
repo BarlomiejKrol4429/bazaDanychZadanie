@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Ksiazki.class}, version = 2)
+@Database(entities = {Ksiazki.class}, version = 3)
 public abstract class KsiazkiDatabase extends RoomDatabase{
     public abstract KsiazkiDao zwrocKsiazkiDao();
 
@@ -15,7 +15,7 @@ public abstract class KsiazkiDatabase extends RoomDatabase{
     public static KsiazkiDatabase zwrocInstancjeBazyDanych(Context context){
         if(instancja == null){
             instancja = Room.databaseBuilder(
-                    context, KsiazkiDatabase.class, "przepisy_db"
+                    context, KsiazkiDatabase.class, "ksiazki_db"
             ).allowMainThreadQueries().fallbackToDestructiveMigration().build();
         }
         return instancja;
