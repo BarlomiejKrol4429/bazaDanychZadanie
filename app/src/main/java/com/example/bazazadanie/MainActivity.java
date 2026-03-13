@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         List<Ksiazki> wszystkieKsiazkiList = ksiazkiDatabase.zwrocKsiazkiDao().zwrocWszytkieKsiazkiZBazy();
         ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiList);
         listView.setAdapter(arrayAdapter);
-
 
         dodaj.setOnClickListener(
                 new View.OnClickListener() {
@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        String autori = modyfikowanaKsiazka.getAutor();
-                        String tytuli = modyfikowanaKsiazka.getTytul();
-                        double cenai  = modyfikowanaKsiazka.getCena();
-                        int stronyi = modyfikowanaKsiazka.getIloscStron();
-                        int roki = modyfikowanaKsiazka.getRokWydania();
+                        String autori = String.valueOf(autor.getText());
+                        String tytuli = String.valueOf(tytul.getText());
+                        double cenai  = Double.parseDouble(String.valueOf(cena.getText()));
+                        int stronyi = Integer.parseInt(String.valueOf(strony.getText()));
+                        int roki = Integer.parseInt(String.valueOf(rok.getText()));
+                        Toast.makeText(MainActivity.this, autori, Toast.LENGTH_SHORT).show();
 
                         wszystkieKsiazkiList.get(modyfikowaneid).setAutor(autori);
                         wszystkieKsiazkiList.get(modyfikowaneid).setTytul(tytuli);
