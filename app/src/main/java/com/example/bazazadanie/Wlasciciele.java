@@ -8,18 +8,15 @@ public class Wlasciciele {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int id_ksiazki;
-    private String imie;
-    private String nazwisko;
+    private String imie_i_nazwisko;
     private String adres;
 
-    public Wlasciciele(int id_ksiazki, String imie, String nazwisko, String adres) {
+    public Wlasciciele(int id_ksiazki, String imie_i_nazwisko, String adres) {
         this.id = 0;
         this.id_ksiazki = id_ksiazki;
-        this.imie = imie;
-        this.nazwisko = nazwisko;
+        this.imie_i_nazwisko = imie_i_nazwisko;
         this.adres = adres;
     }
-
     public int getId() {
         return id;
     }
@@ -35,25 +32,16 @@ public class Wlasciciele {
     public void setId_ksiazki(int id_ksiazki) {
         this.id_ksiazki = id_ksiazki;
     }
-
-    public String getImie() {
-        return imie;
-    }
-
-    public void setImie(String imie) {
-        this.imie = imie;
-    }
-
-    public String getNazwisko() {
-        return nazwisko;
-    }
-
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
-    }
-
     public String getAdres() {
         return adres;
+    }
+
+    public String getImie_i_nazwisko() {
+        return imie_i_nazwisko;
+    }
+
+    public void setImie_i_nazwisko(String imie_i_nazwisko) {
+        this.imie_i_nazwisko = imie_i_nazwisko;
     }
 
     public void setAdres(String adres) {
@@ -62,8 +50,7 @@ public class Wlasciciele {
 
     @Override
     public String toString() {
-        return  "Imie: " + imie + ",\n" +
-                "Nazwisko: " + nazwisko + ",\n" +
+        return  "Imie I Nazwisko: " + imie_i_nazwisko + ",\n" +
                 "Adres: " + adres + ",\n";
     }
 }

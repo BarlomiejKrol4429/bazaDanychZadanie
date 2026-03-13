@@ -35,21 +35,32 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ksiazkiDatabase = KsiazkiDatabase.zwrocInstancjeBazyDanych(MainActivity.this);
-        //ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("Władysław Reymont", "Chłopi", 20, 736, 1904));
-        //ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("Andrzej Sapkowski", "Wiedźmin: Ostatnie życzenie", 40, 332, 1993));
-        //ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("George Orwell", "Rok 1984", 40, 230, 1949));
+        ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("Władysław Reymont", "Chłopi", 20, 736, 1904));
+        ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("Andrzej Sapkowski", "Wiedźmin: Ostatnie życzenie", 40, 332, 1993));
+        ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki("George Orwell", "Rok 1984", 40, 230, 1949));
+        ksiazkiDatabase.zwrocKsiazkiDao().wstawWlascicielaDoBazy(new Wlasciciele(2,"Jaś Michnik","Wadowice"));
 
         Button dodaj = findViewById(R.id.dodaj);
         Button edytuj = findViewById(R.id.edytuj);
+        Button dodajw = findViewById(R.id.dodajw);
         EditText tytul = findViewById(R.id.tytul);
         EditText autor = findViewById(R.id.autor);
         EditText cena = findViewById(R.id.cena);
         EditText strony = findViewById(R.id.strony);
         EditText rok = findViewById(R.id.rok);
-        ListView listView = findViewById(R.id.ksiazki);
+        EditText iin = findViewById(R.id.wlasciciel);
+        EditText adres = findViewById(R.id.adres);
+        ListView listViewKsiazki = findViewById(R.id.ksiazki);
+        ListView listViewWlasciciele = findViewById(R.id.wlasciciele);
+
         List<Ksiazki> wszystkieKsiazkiList = ksiazkiDatabase.zwrocKsiazkiDao().zwrocWszytkieKsiazkiZBazy();
-        ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiList);
-        listView.setAdapter(arrayAdapter);
+        ArrayAdapter<Ksiazki> arrayAdapterK = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiList);
+        listViewKsiazki.setAdapter(arrayAdapterK);
+
+        List<WlascicielZKsiazka> wszyscyWlascicieleList = ksiazkiDatabase.zwrocKsiazkiDao().zwrocKsiazkeIWlasciciela();
+        ArrayAdapter<WlascicielZKsiazka> arrayAdapterw = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszyscyWlascicieleList);
+        listViewWlasciciele.setAdapter(arrayAdapterw);
+
 
         dodaj.setOnClickListener(
                 new View.OnClickListener() {
@@ -62,26 +73,26 @@ public class MainActivity extends AppCompatActivity {
                         int roki = modyfikowanaKsiazka.getRokWydania();
 
                         ksiazkiDatabase.zwrocKsiazkiDao().wstawKsiazkeDoBazy(new Ksiazki(autori, tytuli, cenai, stronyi, roki));
-                        arrayAdapter.notifyDataSetChanged();
+                        arrayAdapterK.notifyDataSetChanged();
                     }
                 }
         );
-        listView.setOnItemClickListener(
+        listViewKsiazki.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ksiazkiDatabase.zwrocKsiazkiDao().usunZBazy(wszystkieKsiazkiList.get(i));
                         wszystkieKsiazkiList.remove(i);
-                        arrayAdapter.notifyDataSetChanged();
+                        arrayAdapterK.notifyDataSetChanged();
                     }
                 }
         );
-        listView.setOnItemLongClickListener(
+        listViewKsiazki.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                         modyfikowanaKsiazka = wszystkieKsiazkiList.get(i);
-                        modyfikowaneid = i;
+                        modyfikowaneid = modyfikowanaKsiazka.getId();
                         String autori = modyfikowanaKsiazka.getAutor();
                         String tytuli = modyfikowanaKsiazka.getTytul();
                         double cenai  = modyfikowanaKsiazka.getCena();
@@ -95,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         rok.setText(String.valueOf(roki));
 
                         edytuj.setEnabled(true);
+                        dodajw.setEnabled(true);
                         return false;
                     }
                 }
@@ -116,9 +128,34 @@ public class MainActivity extends AppCompatActivity {
                         wszystkieKsiazkiList.get(modyfikowaneid).setIloscStron(stronyi);
                         wszystkieKsiazkiList.get(modyfikowaneid).setRokWydania(roki);
 
-                        arrayAdapter.notifyDataSetChanged();
+                        arrayAdapterK.notifyDataSetChanged();
                         ksiazkiDatabase.zwrocKsiazkiDao().zaktualizuj(wszystkieKsiazkiList.get(modyfikowaneid));
                         edytuj.setEnabled(false);
+                    }
+                }
+        );
+        dodajw.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int id_k = modyfikowaneid;
+                        String inicjaly = String.valueOf(iin.getText());
+                        String adress = String.valueOf(adres.getText());
+
+                        ksiazkiDatabase.zwrocKsiazkiDao().wstawWlascicielaDoBazy(new Wlasciciele(id_k, inicjaly, adress));
+                        arrayAdapterw.notifyDataSetChanged();
+                        dodajw.setEnabled(false);
+                    }
+                }
+        );
+        listViewWlasciciele.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        wszyscyWlascicieleList.get(i);
+                        ksiazkiDatabase.zwrocKsiazkiDao().usunZBazyW();
+                        wszystkieKsiazkiList.remove(i);
+                        arrayAdapterK.notifyDataSetChanged();
                     }
                 }
         );
