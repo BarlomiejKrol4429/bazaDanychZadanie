@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         EditText cena = findViewById(R.id.cena);
         EditText strony = findViewById(R.id.strony);
         EditText rok = findViewById(R.id.rok);
-        ListView listView = findViewById(R.id.przepisy);
+        ListView listView = findViewById(R.id.ksiazki);
         List<Ksiazki> wszystkieKsiazkiList = ksiazkiDatabase.zwrocKsiazkiDao().zwrocWszytkieKsiazkiZBazy();
         ArrayAdapter<Ksiazki> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, wszystkieKsiazkiList);
         listView.setAdapter(arrayAdapter);
